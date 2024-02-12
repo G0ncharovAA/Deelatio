@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deelatio</title>
+    <!-- Add the OneSignal SDK script -->
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
+    <!-- Add custom CSS for centering the header -->
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>Welcome to Deelatio!</h1>
+      <ul id="notificationsList"></ul>
+    </div>
+
+    <!-- Your custom JavaScript code -->
+    <script>
+      var notificationsList = document.getElementById("notificationsList");
+
+      // Handle notification display
+      function displayNotification(notification) {
+        var li = document.createElement("li");
+        li.textContent = notification.body;
+        notificationsList.appendChild(li);
+      }
+
+      // Add event listener for notification display
+      OneSignal.push(function () {
+        OneSignal.on("notificationDisplay", function (event) {
+          displayNotification(event);
+        });
+      });
+
+      // OneSignal initialization
+      OneSignal.push(function () {
+        OneSignal.getUserId().then(function (userId) {
+          console.log("OneSignal User ID:", userId);
+        });
+
+        // Subscribe to push notifications
+        OneSignal.push(["registerForPushNotifications"]);
+      });
+    </script>
+  </body>
+</html>
