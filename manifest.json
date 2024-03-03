@@ -1,0 +1,17 @@
+{
+  "name": "Deelatio",
+  "short_name": "Deelatio",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#DDFDFD",
+  "background_color": "#DDFDFD",
+  "orientation": "portrait",
+  "icons": [
+     {
+      "src": "img/icon.webp",
+      "type": "image/webp",
+      "sizes": "any",
+      "purpose": "any"
+    }
+  ]
+}
