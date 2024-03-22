@@ -1,5 +1,7 @@
 "use strict";
 
+import * as exceptions from "../core/exceptions.js";
+
 /**
  * Reads value from storage by given key
  *
@@ -7,7 +9,12 @@
  * @returns {object} value
  */
 export function getItem(key) {
-  return deserialize(localStorage.getItem(key));
+  const result = localStorage.getItem(key);
+  if (result) {
+    return deserialize(result);
+  } else {
+    throw exceptions.ValueNotFoundException;
+  }
 }
 
 /**
@@ -25,10 +32,11 @@ function deserialize(stringValue) {
  *
  * @param {string} key
  * @param {object} value
- * @returns
+ * @returns {boolean} true, if successful
  */
 export function saveItem(key, value) {
-  return localStorage.setItem(key, serialize(value));
+  localStorage.setItem(key, serialize(value));
+  return true;
 }
 
 /**

@@ -16,7 +16,7 @@ logger.log(`Script is read`);
 //       worker = navigator.serviceWorker;
 //       console.log(` worker:`, worker);
 //       worker
-//         .register(`./service-worker.js`)
+//         .register(`./view/service-worker.js`)
 //         .then((registration) => {
 //           console.log(`Service worker registered:`, registration);
 //         })
@@ -29,14 +29,16 @@ logger.log(`Script is read`);
 
 // registerSW();
 
-level1.doSomething();
+// level1.doSomething();
 
-logger.log(`field level1 `, level1.get());
-logger.log(`field level2 `, level2.get());
-level1.set(1);
-logger.log(`field level1 `, level1.get());
-logger.log(`field level2 `, level2.get());
+// logger.log(`field level1 `, level1.get());
+// logger.log(`field level2 `, level2.get());
+// level1.set(1);
+// logger.log(`field level1 `, level1.get());
+// logger.log(`field level2 `, level2.get());
 
-let root = document.getElementById(`root`);
+// let root = document.getElementById(`root`);
 
-logger.log(`root`, root);
+// logger.log(`root`, root);
+
+level1.tryToCatch();

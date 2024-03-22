@@ -12,3 +12,12 @@ export function log(...message) {
     console.log(...message);
   }
 }
+
+/**
+ * Logs an error
+ *
+ * @param {Error} error
+ */
+export function e(error) {
+  log(`Error:`, error);
+}
