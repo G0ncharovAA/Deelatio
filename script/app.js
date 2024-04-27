@@ -3,6 +3,7 @@
 import * as logger from "./core/logger.js";
 import * as level1 from "./level1.js";
 import * as level2 from "./view/level2.js";
+import * as navigation from "./view/navigation.js";
 
 logger.log(`Script is read`);
 
@@ -41,4 +42,8 @@ logger.log(`Script is read`);
 
 // logger.log(`root`, root);
 
-level1.tryToCatch();
+// level1.tryToCatch();
+
+navigation.navigateToRecentDestination(
+    document.querySelector("#root")
+);

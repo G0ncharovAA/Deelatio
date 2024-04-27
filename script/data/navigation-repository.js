@@ -23,8 +23,8 @@ export function saveDestination(destination, args) {
     args
   );
   const isDone =
-    !(destinationResult instanceof error) &&
-    !(argumentsResult instanceof error);
+    !(destinationResult instanceof Error) &&
+    !(argumentsResult instanceof Error);
   return isDone;
 }
 
@@ -49,7 +49,7 @@ export function loadRecentDestination() {
  */
 export function loadRecentDestinationArguments() {
   const result = storageInteractor.getItem(RECENT_DESTINATION_ARGUMENTS_KEY);
-  if (result instanceof error) {
+  if (result instanceof Error) {
     return false;
   } else {
     return result;
