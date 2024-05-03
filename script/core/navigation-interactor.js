@@ -8,7 +8,7 @@ const DEFAULT_DESTINATION = Destinations.HOME;
 /**
  * Returns recent destination with its arguments. Default values will be returned in case of error.
  *
- * @returns {{destiantion, args}} {destination, args} - Destinations enum and an object containinig arguments
+ * @returns {{destiantion, args}} {destination, args} - Destinations enum and an object containinig arguments.
  */
 export function getRecentDestinationWithArguments() {
   let recendDestination = navigationRepository.loadRecentDestination();
@@ -24,11 +24,11 @@ export function getRecentDestinationWithArguments() {
 }
 
 /**
- * Should be invoked every time destination or its arguments changed
+ * Should be invoked every time destination or its arguments changed.
  *
- * @param {Destination} destination - string value of Destinations enum
- * @param {object} args - arguments for Destination
- * @returns {boolean} true, if processed successful
+ * @param {Destination} destination - string value of Destinations enum.
+ * @param {object} args - arguments for Destination.
+ * @returns {boolean} true, if processed successful.
  */
 export function onDestinationChanged(destination, args) {
   const result = navigationRepository.saveDestination(destination, args);

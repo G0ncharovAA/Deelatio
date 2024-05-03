@@ -1,5 +1,5 @@
 /**
- * Clears all content from node properly.
+ * Clears all content from the node properly.
  *
  * @param {DOM_Node} node
  */

@@ -3,7 +3,7 @@
 import * as exceptions from "../core/exceptions.js";
 
 /**
- * Reads value from storage by given key
+ * Reads value from storage by given key.
  *
  * @param {string} key
  * @returns {object} value
@@ -18,7 +18,7 @@ export function getItem(key) {
 }
 
 /**
- * Generates object from JSON string
+ * Generates object from JSON string.
  *
  * @param {string} stringValue
  * @returns {object} deserialized object
@@ -32,7 +32,7 @@ function deserialize(stringValue) {
  *
  * @param {string} key
  * @param {object} value
- * @returns {boolean} true, if successful
+ * @returns {boolean} true, if successful.
  */
 export function saveItem(key, value) {
   localStorage.setItem(key, serialize(value));
@@ -40,10 +40,10 @@ export function saveItem(key, value) {
 }
 
 /**
- * Serializes object to JSON string
+ * Serializes object to JSON string.
  *
  * @param {object} value
- * @returns {string} JSON string
+ * @returns {string} JSON string.
  */
 function serialize(value) {
   return JSON.stringify(value);

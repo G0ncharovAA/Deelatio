@@ -3,7 +3,7 @@
 const DEBUG_MODE = true;
 
 /**
- * Make log entry if it is debug mode
+ * Make log entry if it is debug mode.
  *
  * @param {...any} message
  */
@@ -14,7 +14,7 @@ export function log(...message) {
 }
 
 /**
- * Logs an error
+ * Logs an error.
  *
  * @param {Error} error
  */

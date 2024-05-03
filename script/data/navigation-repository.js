@@ -7,11 +7,11 @@ const RECENT_DESTINATION_KEY = `NAV_RECENT_DESTINATION`;
 const RECENT_DESTINATION_ARGUMENTS_KEY = `NAV_RECENT_DESTINATION_ARGUMENTS`;
 
 /**
- * Saves recent destination to storage
+ * Saves recent destination to storage.
  *
- * @param {Destination} destination - string value of Destinations enum
- * @param {object} args - arguments for Destination
- * @returns {boolean} true, if successful
+ * @param {Destination} destination - string value of Destinations enum.
+ * @param {object} args - arguments for Destination.
+ * @returns {boolean} true, if successful.
  */
 export function saveDestination(destination, args) {
   const destinationResult = storageInteractor.saveItem(
@@ -29,9 +29,9 @@ export function saveDestination(destination, args) {
 }
 
 /**
- * Loads recent destination
+ * Loads recent destination.
  *
- * @returns {Destination | boolean} destination of Destinations enum; false if not found or error
+ * @returns {Destination | boolean} destination of Destinations enum; false if not found or error.
  */
 export function loadRecentDestination() {
   const result = storageInteractor.getItem(RECENT_DESTINATION_KEY);
@@ -43,9 +43,9 @@ export function loadRecentDestination() {
 }
 
 /**
- * Loads recent destination arguments
+ * Loads recent destination arguments.
  *
- * @returns {object | boolean} destination arguments; false if not found or error
+ * @returns {object | boolean} destination arguments; false if not found or error.
  */
 export function loadRecentDestinationArguments() {
   const result = storageInteractor.getItem(RECENT_DESTINATION_ARGUMENTS_KEY);
