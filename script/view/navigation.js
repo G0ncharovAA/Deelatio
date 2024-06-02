@@ -7,19 +7,39 @@ import { showHome } from "./destinations/home.js";
 import { showAbout } from "./destinations/about.js";
 import * as logger from "../core/logger.js";
 
+let container;
+
+/**
+ * Setup and startup navigation in this container.
+ * @param {DOM_Node} container - destinations will be placed here.
+ */
+export function setup(root_container) {
+  container = root_container;
+  navigateToRecentDestination(container);
+}
+
+/**
+ * Delegate function incapsulates navigation imlementation to avoid circular dependecy.
+ * @param {Destination} destination - string value of Destinations enum.
+ * @param {object} args - arguments for Destination.
+ */
+const navigationDelegate = (destiantion, args) => {
+  navigate(destiantion, args, container);
+};
+
 /**
  * Restores recent navigation state. Takes root node as argument.
  *
  * @param {DOM_Node} container - destinations will be placed here.
  */
-export function navigateToRecentDestination(container) {
+function navigateToRecentDestination(container) {
   console.log("container", container);
   const recentDestinationWithArguments =
     navigationInteractor.getRecentDestinationWithArguments();
   console.log("destArgs", recentDestinationWithArguments);
   navigate(
-    recentDestinationWithArguments.destiantion,
-    recentDestinationWithArguments.args,
+    recentDestinationWithArguments.recendDestination,
+    recentDestinationWithArguments.recendDestinationArgs,
     container
   );
 }
@@ -31,7 +51,7 @@ export function navigateToRecentDestination(container) {
  * @param {object} args - arguments for Destination.
  * @param {DOM_Node} container - destinations will be placed here.
  */
-export function navigate(destination, args, container) {
+function navigate(destination, args, container) {
   clearNode(container);
   let functor;
   switch (destination) {
@@ -57,7 +77,7 @@ export function navigate(destination, args, container) {
  */
 function applyNavigationMonade(functor, container, args) {
   try {
-    return functor(container, args);
+    return functor(container, args, navigationDelegate);
   } catch (error) {
     logger.e(error);
     return false;

@@ -2,6 +2,7 @@
 
 import * as storageInteractor from "../core/storage-interactor.js";
 import { Destinations } from "../core/entities/destinations.js";
+import * as logger from "../core/logger.js";
 
 const RECENT_DESTINATION_KEY = `NAV_RECENT_DESTINATION`;
 const RECENT_DESTINATION_ARGUMENTS_KEY = `NAV_RECENT_DESTINATION_ARGUMENTS`;

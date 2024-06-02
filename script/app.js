@@ -44,6 +44,6 @@ logger.log(`Script is read`);
 
 // level1.tryToCatch();
 
-navigation.navigateToRecentDestination(
+navigation.setup(
     document.querySelector("#root")
 );

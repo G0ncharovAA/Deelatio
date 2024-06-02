@@ -1,6 +1,7 @@
 "use strict";
 
 import * as exceptions from "../core/exceptions.js";
+import * as logger from "../core/logger.js";
 
 /**
  * Reads value from storage by given key.

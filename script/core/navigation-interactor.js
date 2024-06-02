@@ -2,6 +2,7 @@
 
 import * as navigationRepository from "../data/navigation-repository.js";
 import { Destinations } from "./entities/destinations.js";
+import * as logger from "../core/logger.js";
 
 const DEFAULT_DESTINATION = Destinations.HOME;
 
