@@ -16,6 +16,7 @@ let container;
 export function setup(root_container) {
   container = root_container;
   navigateToRecentDestination(container);
+  //  setupBrowserHistoryListener();
 }
 
 /**
@@ -64,6 +65,7 @@ function navigate(destination, args, container) {
   }
   if (applyNavigationMonade(functor, container, args)) {
     navigationInteractor.onDestinationChanged(destination, args);
+    //  reflectNavigateEventToBrowser(destination, args);
   }
 }
 
@@ -81,5 +83,26 @@ function applyNavigationMonade(functor, container, args) {
   } catch (error) {
     logger.e(error);
     return false;
+  }
+}
+
+// function setupBrowserHistoryListener() {
+//   window.addEventListener("popstate", (event) => {
+//     const url = new URL(window.location.href);
+//     const route = url.pathname;
+//   });
+// }
+
+/**
+ * Reflects navigation change to browser address prompt.
+ *
+ * @param {Destination} destination - string value of Destinations enum.
+ * @param {object} args - arguments for Destination.
+ */
+function reflectNavigateEventToBrowser(destination, args) {
+  try {
+    history.pushState(args, ``, `/${destination}`);
+  } catch (error) {
+    logger.e(error);
   }
 }

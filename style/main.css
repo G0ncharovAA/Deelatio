@@ -3,7 +3,11 @@
   padding: 0;
 }
 
-body {
+#buffer {
+  display: none;
+}
+
+#root {
   display: flex;
   flex-direction: column;
   justify-content: center;
