@@ -45,5 +45,6 @@ logger.log(`Script is read`);
 // level1.tryToCatch();
 
 navigation.setup(
-    document.querySelector("#root")
+  document.querySelector("#root"),
+  document.querySelector("#buffer")
 );

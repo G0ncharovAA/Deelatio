@@ -2,18 +2,28 @@
 
 import { Destinations } from "../../core/entities/destinations.js";
 import * as logger from "../../core/logger.js";
+import { removeAllListeners } from "../utils.js";
 
-const HOME_ELEMENT_ID = "HOME-ELEMENT";
+const ABOUT_BUTTON_ID = "ABOUT-BUTTON-ID";
 
 /**
- * Shows HOME destination in the given container with given arguments.
+ * Creates destination element and inserts it into given container with given arguments.
  * @param {DOM_Node} container - empty DOM node to be placed in.
  * @param {object} args - arguments.
- * @param {Function} navigationDelegate - incapsulates navigation from navigation.js Takes Destination enum and args object.
- * @returns {boolean} - true if successful.
+ * @param {Function} navigationDelegate - incapsulates navigation from navigation.js Takes Destination enum and args
+ * @returns {DOM_Node} - element created.
  */
-export function showHome(container, args, navigationDelegate) {
-  const home_element = create(container);
+export function create(container, args, navigationDelegate) {
+  container.insertAdjacentHTML(
+    `beforeend`,
+    `
+    <div class="${Destinations.HOME}">
+      <h1>This is HOME screen<h1>
+      <button class="${ABOUT_BUTTON_ID}">to ABOUT!</button>
+    </div>
+    `
+  );
+  const home_element = container.querySelector(`.${Destinations.HOME}`);
   if (home_element) {
     return alterate(home_element, args, navigationDelegate);
   } else {
@@ -22,38 +32,17 @@ export function showHome(container, args, navigationDelegate) {
 }
 
 /**
- * Creates HOME destination element and inserts it into given container with given arguments.
- * @param {DOM_Node} container - empty DOM node to be placed in.
- * @returns {DOM_Node} - element crated.
- */
-function create(container) {
-  container.insertAdjacentHTML(
-    "beforeend",
-    `
-    <div class="${HOME_ELEMENT_ID}">
-      <h1>This is HOME screen<h1>
-      <button class="myButton">my button!</button>
-    </div>
-    `
-  );
-  const home_element = container.querySelector(`.${HOME_ELEMENT_ID}`);
-  if (home_element) {
-    return home_element;
-  } else {
-    return false;
-  }
-}
-
-/**
- * alterrates HOME destination in the given container with given arguments. Takes HOME
- * @param {DOM_Node} home_element - empty DOM node to be placed in.
+ * alterates destination in the given container with given arguments. Takes existing HOME element to display new
+ * @param {DOM_Node} element - This destinatio DOM node.
  * @param {object} args - arguments.
  * @param {Function} navigationDelegate - incapsulates navigation from navigation.js Takes Destination enum and args object.
  * @returns {boolean} - true if successful.
  */
-function alterate(home_element, args, navigationDelegate) {
-  const button = home_element.querySelector(`.myButton`);
+export function alterate(element, args, navigationDelegate) {
+  let button = element.querySelector(`.${ABOUT_BUTTON_ID}`);
+  button = removeAllListeners(button);
   button.addEventListener("click", () => {
+    logger.log("on home click!");
     navigationDelegate(Destinations.ABOUT, {});
   });
   return true;
