@@ -1,0 +1,137 @@
+"use strict";
+
+import { Destinations } from "../../core/entities/destinations.js";
+import * as logger from "../../core/logger.js";
+import { removeAllListeners } from "../utils.js";
+
+const BACK_BUTTON_ID = "BACK-BUTTON-ID";
+
+/**
+ * Creates destination element and inserts it into given container with given arguments.
+ * @param {DOM_Node} container - empty DOM node to be placed in.
+ * @param {object} args - arguments.
+ * @param {Function} navigationDelegate - incapsulates navigation from navigation.js Takes Destination enum and args
+ * @returns {DOM_Node} - element crated.
+ */
+export function create(container, args, navigationDelegate) {
+  container.insertAdjacentHTML(
+    `beforeend`,
+    `
+    <div class="${Destinations.CHANNEL_PLAYGROUND}">
+      <h1>This is Channel playground screen</h1>
+      <button class="${BACK_BUTTON_ID}">go back</button>
+      <p> !loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfhv!loremsfgadfggfhvvv!loremsfgadfggfhvv!loremsfgadfggfhvv!loremsfgadfggfh!loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfhv!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfhv
+      !loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfh</p>
+      <p> !loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfhv!loremsfgadfggfhvvv!loremsfgadfggfhvv!loremsfgadfggfhvv!loremsfgadfggfh!loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfhv!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfhv
+      !loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfh</p>
+      <p> !loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfhv!loremsfgadfggfhvvv!loremsfgadfggfhvv!loremsfgadfggfhvv!loremsfgadfggfh!loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfhv!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfhv
+      !loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfh</p>
+      <p> !loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfhv!loremsfgadfggfhvvv!loremsfgadfggfhvv!loremsfgadfggfhvv!loremsfgadfggfh!loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfhv!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfhv
+      !loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfh</p>
+      <p> !loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfhv!loremsfgadfggfhvvv!loremsfgadfggfhvv!loremsfgadfggfhvv!loremsfgadfggfh!loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfhv!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfhv
+      !loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfh</p>
+      <p> !loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfhv!loremsfgadfggfhvvv!loremsfgadfggfhvv!loremsfgadfggfhvv!loremsfgadfggfh!loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfhv!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfhv
+      !loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfh</p>
+      <p> !loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfhv!loremsfgadfggfhvvv!loremsfgadfggfhvv!loremsfgadfggfhvv!loremsfgadfggfh!loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfhv!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfhv
+      !loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfh</p>
+      <p> !loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfhv!loremsfgadfggfhvvv!loremsfgadfggfhvv!loremsfgadfggfhvv!loremsfgadfggfh!loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfhv!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfhv
+      !loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfhv!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfh!loremsfgadfggfh
+      !loremsfgadfggfh!loremsfgadfggfh</p>
+    </div>
+    `
+  );
+  const playground_element = container.querySelector(`.${Destinations.CHANNEL_PLAYGROUND}`);
+  if (playground_element) {
+    return alterate(playground_element, args, navigationDelegate);
+  } else {
+    return false;
+  }
+}
+
+/**
+ * alterates destination in the given container with given arguments. Takes existing HOME element to display new
+ * @param {DOM_Node} element - empty DOM node to be placed in.
+ * @param {object} args - arguments.
+ * @param {Function} navigationDelegate - incapsulates navigation from navigation.js Takes Destination enum and args object.
+ * @returns {boolean} - true if successful.
+ */
+export function alterate(element, args, navigationDelegate) {
+  let button = element.querySelector(`.${BACK_BUTTON_ID}`);
+  button = removeAllListeners(button);
+  button.addEventListener("click", () => {
+    logger.log("on Playground backwards click!");
+    navigationDelegate(Destinations.BACKWARDS, {});
+  });
+  return true;
+}

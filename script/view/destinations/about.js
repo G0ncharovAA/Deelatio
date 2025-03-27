@@ -17,7 +17,7 @@ export function create(container, args, navigationDelegate) {
   container.insertAdjacentHTML(
     `beforeend`,
     `
-    <div class="${Destinations.ABOUT}">
+    <div class="${Destinations.ABOUT} match-parent column">
       <h1>This is ABOUT screen</h1>
       <button class="${BACK_BUTTON_ID}">go back</button>
     </div>

@@ -5,6 +5,7 @@ import * as logger from "../../core/logger.js";
 import { removeAllListeners } from "../utils.js";
 
 const ABOUT_BUTTON_ID = "ABOUT-BUTTON-ID";
+const CHANNEL_PLAYGROUND_BUTTON_ID = "CHANNEL-PLAYGROUND-BUTTON-ID";
 
 /**
  * Creates destination element and inserts it into given container with given arguments.
@@ -17,9 +18,10 @@ export function create(container, args, navigationDelegate) {
   container.insertAdjacentHTML(
     `beforeend`,
     `
-    <div class="${Destinations.HOME}">
+    <div class="${Destinations.HOME} match-parent centered column">
       <h1>This is HOME screen<h1>
       <button class="${ABOUT_BUTTON_ID}">to ABOUT!</button>
+      <button class="${CHANNEL_PLAYGROUND_BUTTON_ID}">to ChannelPlayground!</button>
     </div>
     `
   );
@@ -39,11 +41,19 @@ export function create(container, args, navigationDelegate) {
  * @returns {boolean} - true if successful.
  */
 export function alterate(element, args, navigationDelegate) {
-  let button = element.querySelector(`.${ABOUT_BUTTON_ID}`);
-  button = removeAllListeners(button);
-  button.addEventListener("click", () => {
+  let buttonAbout = element.querySelector(`.${ABOUT_BUTTON_ID}`);
+  buttonAbout = removeAllListeners(buttonAbout);
+  buttonAbout.addEventListener("click", () => {
     logger.log("on home click!");
     navigationDelegate(Destinations.ABOUT, {});
+  });
+  let buttonCannelPlayground = element.querySelector(
+    `.${CHANNEL_PLAYGROUND_BUTTON_ID}`
+  );
+  buttonCannelPlayground = removeAllListeners(buttonCannelPlayground);
+  buttonCannelPlayground.addEventListener("click", () => {
+    logger.log("on home to playground click!");
+    navigationDelegate(Destinations.CHANNEL_PLAYGROUND, {});
   });
   return true;
 }

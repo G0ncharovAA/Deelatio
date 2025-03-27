@@ -5,6 +5,7 @@ import { Destinations } from "../core/entities/destinations.js";
 import { clearNode } from "./utils.js";
 import * as home from "./destinations/home.js";
 import * as about from "./destinations/about.js";
+import * as playground from "./destinations/channel_playground.js";
 import * as logger from "../core/logger.js";
 
 // DOM node used as host container for destinations.
@@ -23,11 +24,13 @@ let currentDestinationWithArgs;
 const creationMethods = {
   [Destinations.HOME]: home.create,
   [Destinations.ABOUT]: about.create,
+  [Destinations.CHANNEL_PLAYGROUND]: playground.create,
 };
 
 const alterationMethods = {
   [Destinations.HOME]: home.alterate,
   [Destinations.ABOUT]: about.alterate,
+  [Destinations.CHANNEL_PLAYGROUND]: playground.alterate,
 };
 
 /**
