@@ -7,17 +7,17 @@ import { deepCompare } from "./utils.js";
  * Channels implements subscription mechanism on a mutable value.
  */
 export class Channel {
-   /**
+  /**
    * Current value of this channel.
    */
   #value;
 
-   /**
+  /**
    * Map of observers of this value, stored by their id's.
    */
   #observers;
 
-    /**
+  /**
    * Initial value thhis channel will have.
    * @param {Object} initialValue
    */
@@ -26,12 +26,12 @@ export class Channel {
     this.#observers = new Map();
   }
 
-   /**
+  /**
    * Subscribes for this channel. Must take an id,
    * and a function to be invoked every time the value changes.
    * subscriptionFunction also to be invoked at subscription.
    * subscriptionFunction must return true to maintain subscription.
-   * 
+   *
    * @param {String} subcriptionId Must be unique.
    * @param {function(any): boolean} subscriptionFunction Must return boolean.
    */
@@ -42,6 +42,10 @@ export class Channel {
     }
   }
 
+  getCurrentValue() {
+    return this.#value;
+  }
+
   onNext(newValue) {
     logger.log("onNext!: ", this.#value, newValue);
     if (!deepCompare(this.#value, newValue)) {
@@ -50,12 +54,7 @@ export class Channel {
       const aliveObservers = new Map(
         [...this.#observers].filter(
           ([subscriptionId, subscriptionFunction]) => {
-            logger.log(
-              "onNext invocking: ",
-              subscriptionId,
-              subscriptionFunction
-            );
-            this.#invokeSubscriptionFunction(subscriptionFunction);
+            return this.#invokeSubscriptionFunction(subscriptionFunction);
           }
         )
       );

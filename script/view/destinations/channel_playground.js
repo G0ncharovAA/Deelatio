@@ -68,7 +68,7 @@ export function alterate(element, args, navigationDelegate) {
   buttonChange = removeAllListeners(buttonChange);
   buttonChange.addEventListener("click", () => {
     logger.log("on Playground change click!");
-    myChannel.onNext("!!");
+    myChannel.onNext(myChannel.getCurrentValue() + "!");
   });
   return true;
 }
