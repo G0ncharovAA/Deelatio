@@ -1,7 +1,7 @@
 "use strict";
 
-import Channel from "./channel";
+import { Channel } from "./channel.js";
 
-const channel = new Channel("valuie1");
+const myChannel = new Channel("val1");
 
-channel.
+export default myChannel;

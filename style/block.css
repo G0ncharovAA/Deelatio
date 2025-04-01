@@ -1,0 +1,19 @@
+.full-screen {
+    width: 100vw;
+    height: 100vh;
+}
+
+.match-parent {
+    width: 100%;
+    height: 100%;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.centered {
+    justify-content: center;
+    align-items: center;
+}

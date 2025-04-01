@@ -6,18 +6,18 @@ import { deepCompare } from "./utils.js";
 /**
  * Channels implements subscription mechanism on a mutable value.
  */
-export default class Channel {
-  /**
+export class Channel {
+   /**
    * Current value of this channel.
    */
   #value;
 
-  /**
+   /**
    * Map of observers of this value, stored by their id's.
    */
   #observers;
 
-  /**
+    /**
    * Initial value thhis channel will have.
    * @param {Object} initialValue
    */
@@ -26,23 +26,37 @@ export default class Channel {
     this.#observers = new Map();
   }
 
-  /**
-   *
-   * @param {String} subcriptionId
-   * @param {Function} subscriptionFunction
+   /**
+   * Subscribes for this channel. Must take an id,
+   * and a function to be invoked every time the value changes.
+   * subscriptionFunction also to be invoked at subscription.
+   * subscriptionFunction must return true to maintain subscription.
+   * 
+   * @param {String} subcriptionId Must be unique.
+   * @param {function(any): boolean} subscriptionFunction Must return boolean.
    */
   subscsribe(subcriptionId, subscriptionFunction) {
+    logger.log("on subscribe! invoke subs: ", subscriptionFunction);
     if (this.#invokeSubscriptionFunction(subscriptionFunction)) {
       this.#observers.set(subcriptionId, subscriptionFunction);
     }
   }
 
   onNext(newValue) {
+    logger.log("onNext!: ", this.#value, newValue);
     if (!deepCompare(this.#value, newValue)) {
+      logger.log("onNext values are not equeal: ", this.#value, newValue);
       this.#value = newValue;
       const aliveObservers = new Map(
-        [...this.#observers].filter(([subscriptionId, subscriptionFunction]) =>
-          this.#invokeSubscriptionFunction(subscriptionFunction)
+        [...this.#observers].filter(
+          ([subscriptionId, subscriptionFunction]) => {
+            logger.log(
+              "onNext invocking: ",
+              subscriptionId,
+              subscriptionFunction
+            );
+            this.#invokeSubscriptionFunction(subscriptionFunction);
+          }
         )
       );
       this.#observers = aliveObservers;
@@ -53,11 +67,6 @@ export default class Channel {
     this.#observers = new Map();
   }
 
-  /**
-   * 
-   * @param {*} subscriptionFunction 
-   * @returns 
-   */
   #invokeSubscriptionFunction(subscriptionFunction) {
     let success = false;
     try {
