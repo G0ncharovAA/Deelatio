@@ -18,3 +18,29 @@ export function removeAllListeners(node) {
   node.parentNode.replaceChild(clone, node);
   return clone;
 }
+
+/**
+ * Sets the one and only listener for this node.
+ *
+ * @param {DOM_Node} node.
+ * @param {Function} listener On click listener lambda.
+ * @returns {DOM_Node} 
+ */
+export function setOnClickListener(node, listener) {
+  const clone = removeAllListeners(node);
+  clone.addEventListener("click", listener);
+  return clone;
+}
+
+/**
+ * 
+ * @param {DOM_Node} root 
+ * @param {string} nodeIdClassName 
+ * @param {Function} listener 
+ */
+export function setOnDescendantClickListener(root, nodeIdClassName, listener){
+   let node = root.querySelector(
+      `.${nodeIdClassName}`
+    );
+    node = setOnClickListener(node, listener);
+}

@@ -2,7 +2,7 @@
 
 import { Destinations } from "../../core/entities/destinations.js";
 import * as logger from "../../core/logger.js";
-import { removeAllListeners } from "../utils.js";
+import { setOnDescendantClickListener } from "../utils.js";
 
 const BACK_BUTTON_ID = "BACK-BUTTON-ID";
 
@@ -39,9 +39,7 @@ export function create(container, args, navigationDelegate) {
  * @returns {boolean} - true if successful.
  */
 export function alterate(element, args, navigationDelegate) {
-  let button = element.querySelector(`.${BACK_BUTTON_ID}`);
-  button = removeAllListeners(button);
-  button.addEventListener("click", () => {
+  setOnDescendantClickListener(element, BACK_BUTTON_ID, () => {
     logger.log("on about click!");
     navigationDelegate(Destinations.BACKWARDS, {});
   });

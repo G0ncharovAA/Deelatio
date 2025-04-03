@@ -2,7 +2,7 @@
 
 import { Destinations } from "../../core/entities/destinations.js";
 import * as logger from "../../core/logger.js";
-import { removeAllListeners } from "../utils.js";
+import { setOnDescendantClickListener } from "../utils.js";
 
 const ABOUT_BUTTON_ID = "ABOUT-BUTTON-ID";
 const CHANNEL_PLAYGROUND_BUTTON_ID = "CHANNEL-PLAYGROUND-BUTTON-ID";
@@ -41,17 +41,11 @@ export function create(container, args, navigationDelegate) {
  * @returns {boolean} - true if successful.
  */
 export function alterate(element, args, navigationDelegate) {
-  let buttonAbout = element.querySelector(`.${ABOUT_BUTTON_ID}`);
-  buttonAbout = removeAllListeners(buttonAbout);
-  buttonAbout.addEventListener("click", () => {
+  setOnDescendantClickListener(element, ABOUT_BUTTON_ID, () => {
     logger.log("on home click!");
     navigationDelegate(Destinations.ABOUT, {});
   });
-  let buttonCannelPlayground = element.querySelector(
-    `.${CHANNEL_PLAYGROUND_BUTTON_ID}`
-  );
-  buttonCannelPlayground = removeAllListeners(buttonCannelPlayground);
-  buttonCannelPlayground.addEventListener("click", () => {
+  setOnDescendantClickListener(element, CHANNEL_PLAYGROUND_BUTTON_ID, () => {
     logger.log("on home to playground click!");
     navigationDelegate(Destinations.CHANNEL_PLAYGROUND, {});
   });
