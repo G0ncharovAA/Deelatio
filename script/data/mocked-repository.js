@@ -14,7 +14,7 @@ const commonFields = {
 
 export function getMockedItems() {
   const result = [];
-  for (let index = 0; i < numberOfObjects; index++) {
+  for (let index = 0; index < numberOfObjects; index++) {
     const item = getMockedItem();
     item.id = index;
     result.push(item);

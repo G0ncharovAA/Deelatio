@@ -6,3 +6,18 @@
     width: 64px;
     height: auto;
 }
+
+.product {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.product h3 {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+.product p {
+    margin: 0;
+}
