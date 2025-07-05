@@ -6,6 +6,7 @@ import { setOnDescendantClickListener } from "../utils.js";
 
 const ABOUT_BUTTON_ID = "ABOUT-BUTTON-ID";
 const CHANNEL_PLAYGROUND_BUTTON_ID = "CHANNEL-PLAYGROUND-BUTTON-ID";
+const STORAGE_PLAYGROUND_BUTTON_ID = "STORAGE-PLAYGROUND-BUTTON-ID";
 
 /**
  * Creates destination element and inserts it into given container with given arguments.
@@ -22,6 +23,7 @@ export function create(container, args, navigationDelegate) {
       <h1>This is HOME screen<h1>
       <button class="${ABOUT_BUTTON_ID}">to ABOUT!</button>
       <button class="${CHANNEL_PLAYGROUND_BUTTON_ID}">to ChannelPlayground!</button>
+      <button class="${STORAGE_PLAYGROUND_BUTTON_ID}">to Storage Playground!</button>
     </div>
     `
   );
@@ -42,12 +44,13 @@ export function create(container, args, navigationDelegate) {
  */
 export function alterate(element, args, navigationDelegate) {
   setOnDescendantClickListener(element, ABOUT_BUTTON_ID, () => {
-    logger.log("on home click!");
     navigationDelegate(Destinations.ABOUT, {});
   });
   setOnDescendantClickListener(element, CHANNEL_PLAYGROUND_BUTTON_ID, () => {
-    logger.log("on home to playground click!");
     navigationDelegate(Destinations.CHANNEL_PLAYGROUND, {});
+  });
+  setOnDescendantClickListener(element, STORAGE_PLAYGROUND_BUTTON_ID, () => {
+    navigationDelegate(Destinations.STORAGE_PLAYGROUND, {});
   });
   return true;
 }

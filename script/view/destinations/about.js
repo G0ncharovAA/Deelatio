@@ -40,7 +40,6 @@ export function create(container, args, navigationDelegate) {
  */
 export function alterate(element, args, navigationDelegate) {
   setOnDescendantClickListener(element, BACK_BUTTON_ID, () => {
-    logger.log("on about click!");
     navigationDelegate(Destinations.BACKWARDS, {});
   });
   return true;

@@ -2,6 +2,16 @@
 
 import * as exceptions from "../core/exceptions.js";
 import * as logger from "../core/logger.js";
+import * as serialization from "../core/serialization.js";
+
+/**
+ *
+ */
+export function initStorageEventListener(storageEventListener) {
+  onstorage = (event) => {
+    storageEventListener(event);
+  };
+}
 
 /**
  * Reads value from storage by given key.
@@ -12,7 +22,7 @@ import * as logger from "../core/logger.js";
 export function getItem(key) {
   const result = localStorage.getItem(key);
   if (result) {
-    return deserialize(result);
+    return serialization.deserialize(result);
   } else {
     throw exceptions.ValueNotFoundException;
   }
@@ -36,16 +46,6 @@ function deserialize(stringValue) {
  * @returns {boolean} true, if successful.
  */
 export function saveItem(key, value) {
-  localStorage.setItem(key, serialize(value));
+  localStorage.setItem(key, serialization.serialize(value));
   return true;
-}
-
-/**
- * Serializes object to JSON string.
- *
- * @param {object} value
- * @returns {string} JSON string.
- */
-function serialize(value) {
-  return JSON.stringify(value);
 }

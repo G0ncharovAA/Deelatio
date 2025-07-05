@@ -21,8 +21,6 @@ const CHANGE_BUTTON_ID = "CHANGE_BUTTON_ID";
  * @returns {DOM_Node} - element crated.
  */
 export function create(container, args, navigationDelegate) {
-  logger.log("layground is creating!");
-
   container.insertAdjacentHTML(
     `beforeend`,
     `
@@ -36,31 +34,26 @@ export function create(container, args, navigationDelegate) {
     `
   );
 
-  const channelOutputElement = container.querySelector(`.${CHANNEL_OUTPUT}`);
-  logger.log("My channel output element: ", channelOutputElement);
-  myChannel.subscsribe(MY_SUBSRIPTION_ID, (value) => {
-    logger.log(`Current value of channel: ${value}`);
-    channelOutputElement.textContent = `Current value of channel: ${value}`;
-    return true;
-  });
-
-  const mockedListChannelOutputElement = container.querySelector(
-    `.${MOCKED_LIST_CHANNEL_OUTPUT}`
-  );
-  logger.log(
-    "Mocked list channel output element: ",
-    mockedListChannelOutputElement
-  );
-  mockedItemsChannel.subscsribe(MY_SUBSRIPTION_ID, (value) => {
-    logger.log(`Current value of mocked list channel: ${value}`);
-    displayProducts(value, mockedListChannelOutputElement);
-    return true;
-  });
-
   const playground_element = container.querySelector(
     `.${Destinations.CHANNEL_PLAYGROUND}`
   );
   if (playground_element) {
+    const channelOutputElement = playground_element.querySelector(
+      `.${CHANNEL_OUTPUT}`
+    );
+    myChannel.subscsribe(MY_SUBSRIPTION_ID, (value) => {
+      channelOutputElement.textContent = `Current value of channel: ${value}`;
+      return true;
+    });
+
+    const mockedListChannelOutputElement = playground_element.querySelector(
+      `.${MOCKED_LIST_CHANNEL_OUTPUT}`
+    );
+    mockedItemsChannel.subscsribe(MY_SUBSRIPTION_ID, (value) => {
+      displayProducts(value, mockedListChannelOutputElement);
+      return true;
+    });
+
     return alterate(playground_element, args, navigationDelegate);
   } else {
     return false;
@@ -76,11 +69,9 @@ export function create(container, args, navigationDelegate) {
  */
 export function alterate(element, args, navigationDelegate) {
   setOnDescendantClickListener(element, BACK_BUTTON_ID, () => {
-    logger.log("on Playground backwards click!");
     navigationDelegate(Destinations.BACKWARDS, {});
   });
   setOnDescendantClickListener(element, CHANGE_BUTTON_ID, () => {
-    logger.log("on Playground change click!");
     //myChannel.onNext(myChannel.getCurrentValue() + "!");
     const currentList = mockedItemsChannel.getCurrentValue();
     const newList = deepCopy(currentList);

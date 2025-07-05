@@ -6,6 +6,7 @@ import { clearNode } from "./utils.js";
 import * as home from "./destinations/home.js";
 import * as about from "./destinations/about.js";
 import * as playground from "./destinations/channel_playground.js";
+import * as storagePlayground from "./destinations/storage_playground.js";
 import * as logger from "../core/logger.js";
 
 // DOM node used as host container for destinations.
@@ -25,12 +26,14 @@ const creationMethods = {
   [Destinations.HOME]: home.create,
   [Destinations.ABOUT]: about.create,
   [Destinations.CHANNEL_PLAYGROUND]: playground.create,
+  [Destinations.STORAGE_PLAYGROUND]: storagePlayground.create,
 };
 
 const alterationMethods = {
   [Destinations.HOME]: home.alterate,
   [Destinations.ABOUT]: about.alterate,
   [Destinations.CHANNEL_PLAYGROUND]: playground.alterate,
+  [Destinations.STORAGE_PLAYGROUND]: storagePlayground.alterate,
 };
 
 /**
@@ -67,18 +70,16 @@ export function setup(root_container, nav_buffer) {
 function navigate(destination, args, container, isMovingBackwards) {
   moveCurrentDestinaionToBuffer();
   const destiantionFromBuffer = findDestinationInBuffer(destination);
-  logger.log("destination from buffer ", destiantionFromBuffer);
   if (destiantionFromBuffer) {
     moveDestinationToContainer(destiantionFromBuffer);
   }
   const functor = getDestinationFunctor(destination, destiantionFromBuffer);
-  logger.log("destination functor ", functor);
   if (applyNavigationMonade(functor, container, args)) {
     navigationInteractor.onDestinationChanged(destination, args);
     manageBackstackOnNavigation(destination, args, isMovingBackwards);
     //  reflectNavigateEventToBrowser(destination, args);
   } else {
-    logger.log("navigation failed");
+    logger.e("navigation failed", functor, container, args);
   }
 }
 
@@ -89,7 +90,6 @@ function navigate(destination, args, container, isMovingBackwards) {
  * @param {object} args - arguments for Destination.
  */
 function performNavigation(destination, args) {
-  logger.log("backstack ", backstack);
   if (destination === Destinations.BACKWARDS) {
     navigateBackwards();
   } else {

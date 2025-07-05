@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2ndPage</title>
+    <link rel="icon" type="image/webp" href="img/icon.webp" />
+    <link rel="stylesheet" href="style/main.css" />
+    <link rel="manifest" href="./manifest.json" />
+    <script defer src="script/app.js" type="module"></script>
+  </head>
+  <body>
+    <div id="buffer"></div>
+    <div id="root" class="full-screen">
+      <div id="splash">
+        <img id="logo" src="img/icon.webp" />
+        <h1>Welcome to Deelatio!</h1>
+        <ul id="notificationsList"></ul>
+        <h6>PWA building</h6>
+      </div>
+    </div>
+  </body>
+</html>
+
+
+Yes, there are several ways to get notified when a value in local storage is changed, though none are perfect or natively supported. Here's a breakdown of common approaches, their limitations, and how to implement them:
+
+1. The storage Event (Best, but Cross-Tab Only)
+
+•  How it works: The storage event is fired in other browsing contexts (tabs, windows, iframes) when the localStorage object is modified. It does not fire in the same tab that made the change.
+•  Why it's good: The most reliable built-in mechanism.
+•  Why it's not ideal: Doesn't catch changes made within the same tab/window. Only good for inter-tab communication/synchronization.
+•  Implementation:
+
+window.addEventListener('storage', function(event) {
+  if (event.key === 'yourKey') {  // Check if the key you care about changed
+    console.log('Key changed:', event.key);
+    console.log('Old value:', event.oldValue);
+    console.log('New value:', event.newValue);
+    console.log('Storage Area:', event.storageArea); // Always localStorage in this case
+    console.log('URL:', event.url);                // URL of the document that made the change
+    // Do something with the new value
+  }
+});
+
+// Example to trigger the event in another tab
+// localStorage.setItem('yourKey', 'new value');
+
+Important Considerations for the storage Event:
+
+•  Origin: The event only fires if the change originates from the same origin (protocol, domain, and port).
+•  Performance: Keep the event handler function lean and efficient. Avoid heavy computations or complex logic, as the event will be fired relatively frequently if other tabs are actively modifying localStorage.
+•  Asynchronous: The event handler is asynchronous. Do not rely on synchronous behavior.

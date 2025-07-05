@@ -36,7 +36,6 @@ export class Channel {
    * @param {function(any): boolean} subscriptionFunction Must return boolean.
    */
   subscsribe(subcriptionId, subscriptionFunction) {
-    logger.log("on subscribe! invoke subs: ", subscriptionFunction);
     if (this.#invokeSubscriptionFunction(subscriptionFunction)) {
       this.#observers.set(subcriptionId, subscriptionFunction);
     }
@@ -47,9 +46,7 @@ export class Channel {
   }
 
   onNext(newValue) {
-    logger.log("onNext!: ", this.#value, newValue);
     if (!deepCompare(this.#value, newValue)) {
-      logger.log("onNext values are not equeal: ", this.#value, newValue);
       this.#value = newValue;
       const aliveObservers = new Map(
         [...this.#observers].filter(
